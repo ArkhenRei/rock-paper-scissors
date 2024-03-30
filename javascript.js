@@ -32,6 +32,22 @@ function playRound(playerSelection, computerSelection) {
   ) {
     return `You lose this round :< ${computerSelection.toUpperCase()} beats ${playerSelection.toUpperCase()}`;
   } else {
-    return "Invalid choice"
+    return "Invalid choice";
   }
 }
+
+function playGame() {
+  let playerSelection = prompt("Enter your selection (Rock, Paper, Scissors)");
+  console.log(playRound(playerSelection, getComputerChoice())) 
+  playerSelection = prompt("Enter your selection (Rock, Paper, Scissors)");
+  console.log(playRound(playerSelection, getComputerChoice())) 
+  playerSelection = prompt("Enter your selection (Rock, Paper, Scissors)");
+  console.log(playRound(playerSelection, getComputerChoice())) 
+  playerSelection = prompt("Enter your selection (Rock, Paper, Scissors)");
+  console.log(playRound(playerSelection, getComputerChoice())) 
+  playerSelection = prompt("Enter your selection (Rock, Paper, Scissors)");
+  console.log(playRound(playerSelection, getComputerChoice())) 
+}
+
+playGame();
+
