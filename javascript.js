@@ -1,9 +1,34 @@
+const roundWinner = document.querySelector(".winner");
+const gameWinner = document.querySelector(".gameWinner");
+const score = document.querySelector(".score");
+const player = document.querySelector(".player-score")
+const computer = document.querySelector(".computer-score")
+const rock = document.querySelector("button.rock");
+const paper = document.querySelector("button.paper");
+const scissors = document.querySelector("button.scissors");
+
+let playerScore = 0;
+let computerScore = 0;
+
+rock.addEventListener("click", (event) => {
+  playRound("rock", getComputerChoice())
+});
+
+paper.addEventListener("click", (event) => {
+  playRound("paper", getComputerChoice())
+});
+
+scissors.addEventListener("click", (event) => {
+  playRound("scissors", getComputerChoice())
+});
+
 function getComputerChoice() {
   let result = ["Rock", "Paper", "Scissors"];
   return result[Math.floor(Math.random() * result.length)];
 }
 
 function playRound(playerSelection, computerSelection) {
+  gameWinner.textContent = "";
   if (
     (playerSelection.toLowerCase() === "rock" &&
       computerSelection === "Scissors") ||
@@ -12,7 +37,8 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection.toLowerCase() === "scissors" &&
       computerSelection === "Paper")
   ) {
-    return `You win this round! ${playerSelection.toUpperCase()} beats ${computerSelection.toUpperCase()}`;
+    roundWinner.textContent = `You win this round! ${playerSelection.toUpperCase()} beats ${computerSelection.toUpperCase()}`;
+    playerScore++;
   } else if (
     (playerSelection.toLowerCase() === "rock" &&
       computerSelection === "Rock") ||
@@ -21,7 +47,7 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection.toLowerCase() === "scissors" &&
       computerSelection === "Scissors")
   ) {
-    return "This round is a tie.";
+    roundWinner.textContent =  "This round is a tie.";
   } else if (
     (playerSelection.toLowerCase() === "rock" &&
       computerSelection === "Paper") ||
@@ -30,24 +56,23 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection.toLowerCase() === "scissors" &&
       computerSelection === "Rock")
   ) {
-    return `You lose this round :< ${computerSelection.toUpperCase()} beats ${playerSelection.toUpperCase()}`;
+    roundWinner.textContent = `You lose this round :< ${computerSelection.toUpperCase()} beats ${playerSelection.toUpperCase()}`;
+    computerScore++;
   } else {
-    return "Invalid choice";
+    roundWinner.textContent = "Invalid choice";
   }
+
+  if(playerScore >= 5) {
+    gameWinner.textContent = "PLAYER WINS!";
+    playerScore = 0;
+    computerScore = 0;
+  }
+  if(computerScore >= 5) {
+    gameWinner.textContent = "COMPUTER WINS!";
+    playerScore = 0;
+    computerScore = 0;
+  }
+
+  player.textContent = `${playerScore}`;
+  computer.textContent = `${computerScore}`;
 }
-
-function playGame() {
-  let playerSelection = prompt("Enter your selection (Rock, Paper, Scissors)");
-  console.log(playRound(playerSelection, getComputerChoice())) 
-  playerSelection = prompt("Enter your selection (Rock, Paper, Scissors)");
-  console.log(playRound(playerSelection, getComputerChoice())) 
-  playerSelection = prompt("Enter your selection (Rock, Paper, Scissors)");
-  console.log(playRound(playerSelection, getComputerChoice())) 
-  playerSelection = prompt("Enter your selection (Rock, Paper, Scissors)");
-  console.log(playRound(playerSelection, getComputerChoice())) 
-  playerSelection = prompt("Enter your selection (Rock, Paper, Scissors)");
-  console.log(playRound(playerSelection, getComputerChoice())) 
-}
-
-playGame();
-
